@@ -1,0 +1,18 @@
+.block_container
+{
+    text-align:center;
+}
+.vote, .wordsave
+{
+    display:inline;
+}
+.glyphicon-thumbs-down, .glyphicon-thumbs-up{
+	  padding-bottom: 1px!important;
+	  padding-top: 1px!important;
+}
+
+.wordsave
+{
+      float: right !important;
+       display:inline;
+}
