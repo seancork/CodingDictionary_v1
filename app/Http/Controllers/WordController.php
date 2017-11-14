@@ -43,6 +43,7 @@ class WordController extends Controller
     $add->description = $request->desc;
     $add->status = 0;  //0 = waiting to be approved/disproved | 1 = disproved | 2 = approved
     $add->user_id = \Auth::user()->id;
+    $add->vote_cache = 0;
     $add->save();
     }}
 

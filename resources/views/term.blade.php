@@ -69,7 +69,7 @@ $(document).ready(function(){
      @endif
        @endforeach
         @endif
-    {{$word->vote_cache}}
+    <p id="votenum">{{$word->vote_cache}}</p>
   @if(Auth::check())
   @if(in_array($word->id, $saved)) 
    <div class=wordsave>

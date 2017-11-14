@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Response;
 
 use App\Votes;
+use App\Word;
 
 class VoteController extends Controller
 {
@@ -44,9 +45,13 @@ class VoteController extends Controller
             if($type == "up"){
                 Votes::where('word_id',$get_id)
                     ->where('user_id',\Auth::user()->id)->update(['deleted'=> 0, 'vote_type' => 1]);
+
+                Word::where('id',$get_id)->increment('vote_cache');
                 }elseif($type == "down"){
                   Votes::where('word_id',$get_id)
                     ->where('user_id',\Auth::user()->id)->update(['deleted'=> 0, 'vote_type' => 0]);
+
+                     Word::where('id',$get_id)->decrement('vote_cache');
                 }else{
                      response()->json(['error' => 'error'], 404);
                 }
@@ -56,20 +61,26 @@ class VoteController extends Controller
              if($type == "up"){
           $save_vote = new Votes;
             $save_vote->word_id = $get_id;
-          //  $save_vote->deleted = 0;
+            $save_vote->deleted = 0;
             $save_vote->user_id = \Auth::user()->id;
             $save_vote->vote_type =  1;
              $save_vote->save();
+           
+           Word::where('id',$get_id)->increment('vote_cache');
 
               response()->json(['success' => 'success'], 200);
 
         }elseif($type == "down"){
              $save_vote = new Votes;
             $save_vote->word_id = $get_id;
-          //  $save_vote->deleted = 0;
+            $save_vote->deleted = 0;
             $save_vote->user_id = \Auth::user()->id;
             $save_vote->vote_type =  0;
              $save_vote->save();
+
+            Word::where('id',$get_id)->decrement('vote_cache');
+
+             response()->json(['success' => 'success'], 200);
          }else{
         response()->json(['failed' => 'failed'], 404);
          }
@@ -90,6 +101,13 @@ class VoteController extends Controller
                             ->where('user_id', '=', \Auth::user()->id)->exists()) {
              Votes::where('word_id',$get_id)
                     ->where('user_id',\Auth::user()->id)->update(['deleted'=> 1]);
+           $type =  preg_replace("/[^a-zA-Z]+/", "", $request->word_id);
+           if($type == "up"){
+            Word::where('id',$get_id)->decrement('vote_cache');
+        }
+          if($type == "down"){
+             Word::where('id',$get_id)->increment('vote_cache');
+          }
     }}}
 
     /**
