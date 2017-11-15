@@ -36,3 +36,9 @@ Route::post ( '/removeword', 'VoteController@delete_liked')->middleware('auth');
 Route::post ( '/removesave', 'WordController@remove_word')->middleware('auth');
 
 Route::post ( '/voteword', 'VoteController@vote_word')->middleware('auth');
+
+///////////////////////////////////////////////////////////
+// Admin only routes
+///////////////////////////////////////////////////////////
+
+Route::get ( '/admin_main', 'AdminController@admin_main')->name('admin_main')->middleware('admin');

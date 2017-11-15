@@ -13,6 +13,9 @@
                     <ul class="nav nav-tabs">
                 <li class="active"><a href="#">Saved Words</a></li>
                 <li><a href="{{route('submitted_words')}}">Submitted Words</a></li>
+                  @if(Auth::user()->is_admin)
+                   <li><a href="{{route('admin_main')}}">Admin</a></li>
+                   @endif
                     </ul>
   @if (count($saved_words) === 0)
   <br />
