@@ -28,8 +28,5 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
-	
-	RewriteCond %{HTTP_HOST} ^codingdictionary.com [NC]
-    RewriteRule ^(.*)$ https://codingdictionary.com/$1 [R,L]
 </IfModule>
 
