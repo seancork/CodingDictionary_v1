@@ -41,4 +41,12 @@ Route::post ( '/voteword', 'VoteController@vote_word')->middleware('auth');
 // Admin only routes
 ///////////////////////////////////////////////////////////
 
-Route::get ( '/admin_main', 'AdminController@admin_main')->name('admin_main')->middleware('admin');
+Route::group(['middleware'=>'auth'], function () {
+
+Route::get ( '/admin_main', 'AdminController@admin_main')->name('admin_main')->middleware('check-permission:admin');
+
+Route::get('/words_check', 'DashboardController@words_check')->name('words_check')->middleware('check-permission:admin');
+
+Route::post('/checkword', 'DashboardController@words_check_status')->name('checkword')->middleware('check-permission:admin');
+
+});

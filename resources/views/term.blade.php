@@ -1,7 +1,9 @@
 @extends('layouts.app')
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  @if(Auth::check())
  <script src="{{ asset('js/ajax-saved.js') }}"></script>
   <script src="{{ asset('js/ajax-vote.js') }}"></script>
+  @endif
    <link href="{{ asset('css/extra.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <script>
@@ -69,7 +71,7 @@ $(document).ready(function(){
      @endif
        @endforeach
         @endif
-    <p id="votenum">{{$word->vote_cache}}</p>
+    <p id="{{$word->id}}" class="votenum">{{$word->vote_cache}}</p>
   @if(Auth::check())
   @if(in_array($word->id, $saved)) 
    <div class=wordsave>

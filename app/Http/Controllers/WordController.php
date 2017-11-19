@@ -45,7 +45,9 @@ class WordController extends Controller
     $add->user_id = \Auth::user()->id;
     $add->vote_cache = 0;
     $add->save();
-    }}
+    }
+    return view('word_successful');
+  }
 
      public function add()
     {

@@ -40,7 +40,8 @@ class SearchController extends Controller
 
            $what_word = Word::select('word', 'description','id','vote_cache')
                 ->where('word', '=', $word)
-                ->orderBy('vote_cache')
+                ->where('status', '=', 1)
+                  ->orderBy('vote_cache', 'status')
                 ->paginate(10);
     if (Auth::check()) {
     $id_list = [];

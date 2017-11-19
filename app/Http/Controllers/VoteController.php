@@ -43,15 +43,33 @@ class VoteController extends Controller
              
              //if word_id already exists for this user, update deleted column
             if($type == "up"){
+                $getvotetypeVotes = Votes::select('vote_type', 'deleted')
+                ->where('word_id', '=', $get_id)->first();
+
                 Votes::where('word_id',$get_id)
                     ->where('user_id',\Auth::user()->id)->update(['deleted'=> 0, 'vote_type' => 1]);
 
-                Word::where('id',$get_id)->increment('vote_cache');
+            if($getvotetypeVotes->vote_type == 0 && $getvotetypeVotes->deleted == 0){
+                   Word::where('id',$get_id)->increment('vote_cache', 2);
+                 }
+         elseif($getvotetypeVotes->deleted == 1){
+                     Word::where('id',$get_id)->increment('vote_cache', 1);
+                   }
+
+              //  Word::where('id',$get_id)->increment('vote_cache');
                 }elseif($type == "down"){
+                $getvotetypeVotes = Votes::select('vote_type', 'deleted')
+                ->where('word_id', '=', $get_id)->first();
+
                   Votes::where('word_id',$get_id)
                     ->where('user_id',\Auth::user()->id)->update(['deleted'=> 0, 'vote_type' => 0]);
+    if($getvotetypeVotes->vote_type == 1 && $getvotetypeVotes->deleted == 0){
+                     Word::where('id',$get_id)->decrement('vote_cache', 2);
+                   }
+     elseif($getvotetypeVotes->deleted == 1){
+                     Word::where('id',$get_id)->decrement('vote_cache', 1);
+                   }
 
-                     Word::where('id',$get_id)->decrement('vote_cache');
                 }else{
                      response()->json(['error' => 'error'], 404);
                 }

@@ -1,4 +1,6 @@
 @extends('layouts.app')
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="{{ asset('js/char-count.js') }}"></script>
 
 @section('content')
 <div class="container">
@@ -27,8 +29,8 @@
                             <label for="desc" class="col-md-4 control-label">Description</label>
 
                             <div class="col-md-6">
-                                <textarea id="desc" type="desc" class="form-control" name="desc" value="{{ old('desc') }}" required></textarea>
-
+                                <textarea id="desc" type="desc"  rows="11" maxlength="255" class="form-control" name="desc" value="{{ old('desc') }}" required></textarea>
+                                <div id="textarea_feedback"></div>
                                 @if ($errors->has('desc'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('desc') }}</strong>

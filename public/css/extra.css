@@ -2,7 +2,7 @@
 {
     text-align:center;
 }
-.vote, .wordsave, #votenum
+.vote, .wordsave, .votenum
 {
     display:inline;
 }

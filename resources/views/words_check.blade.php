@@ -1,4 +1,6 @@
 @extends('layouts.app')
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="{{ asset('js/ajax-wordscheck.js') }}"></script>
 
 @section('content')
 <div class="container">
@@ -17,18 +19,14 @@
                    @endif
                     </ul>
 
-            @foreach($user_words as $indexKey => $word)
+            @foreach($words as $indexKey => $word)
         <hr />
            <h1>{{$word->word}}</h1>
            <p>{{$word->description}}</p><br />
-           @if($word->status == 1)
-           <p>Status: Approved</p>
-           @elseif($word->status == 1)
-             <p>Status: Disproved</p>
-           @elseif($word->status == 0)
-            <p>Status: Waiting</p>
-                    @endif
-
+             <div class=checkword>
+         <button type="button"  id="up-{{$word->id}}" class="btn">Approve</button>
+          <button type="button" id="down-{{$word->id}}" class="btn">disprove</button>
+         </div>
             @endforeach
         <hr />
                 </div>
