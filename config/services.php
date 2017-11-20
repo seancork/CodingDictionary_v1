@@ -15,8 +15,10 @@ return [
     */
 
     'mailgun' => [
-        'domain' => env('MAILGUN_DOMAIN'),
-        'secret' => env('MAILGUN_SECRET'),
+      //  'domain' => env('MAILGUN_DOMAIN'),
+       // 'secret' => env('MAILGUN_SECRET'),
+       'domain' => env('codingdictionary.dev'),
+       'secret' => env('key-100807c9ff79befc3ec9f5d24b94eaa9'),
     ],
 
     'ses' => [
