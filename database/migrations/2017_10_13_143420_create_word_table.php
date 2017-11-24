@@ -16,7 +16,7 @@ class CreateWordTable extends Migration
         Schema::create('words', function (Blueprint $table) {
             $table->increments('id');
             $table->string('word');
-            $table->string('description');
+            $table->string('description', 255);
             $table->integer('status');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
