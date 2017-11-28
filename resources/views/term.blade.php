@@ -71,7 +71,9 @@ $(document).ready(function(){
      @endif
        @endforeach
         @endif
+        <div class=votenum>
     <p id="{{$word->id}}" class="votenum">{{$word->vote_cache}}</p>
+  </div>
   @if(Auth::check())
   @if(in_array($word->id, $saved)) 
    <div class=wordsave>

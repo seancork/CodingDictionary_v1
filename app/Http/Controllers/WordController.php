@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 use App\Word;
 use App\UserSavedWords;
-
 use Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
 
 class WordController extends Controller
 {
@@ -29,14 +27,14 @@ class WordController extends Controller
     public function add_word(Request $request)
     {
      $validator = Validator::make($request->all(), [
-        'word' => 'required|min:1|max:100',
+        'word' => 'required|min:1|max:191',
         'desc' => 'required|min:1|max:255',
     ]);
 
     if ($validator->fails()) {
-        return redirect('/')
-            ->withInput()
-            ->withErrors($validator);
+            return redirect('/add')
+                        ->withErrors($validator)
+                        ->withInput();
     }else{
     $add = new Word;
     $add->word = $request->word;
@@ -54,19 +52,10 @@ class WordController extends Controller
         return view('add');
     }
 
-    public function submitted_words()
-    {
-           $user_words = Word::select('word', 'description','status','id')
-                ->where('user_id', '=', \Auth::user()->id)
-                ->paginate(15);
-
-          return view('submitted_words',compact('user_words'));
-}
-
   public function save_word(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'word_id' => 'required|digits_between:1,6',
+            'word_id' => 'required|min:1|max:10',
         ]);
         if ($validator->fails()) {
             return Response::json(array(
@@ -93,7 +82,7 @@ class WordController extends Controller
      public function remove_word(Request $request)
     {
         $validator = Validator::make($request->all(), [
-          'word_id' => 'required|digits_between:1,6',
+          'word_id' => 'required|min:1|max:10',
         ]);
         if ($validator->fails()) {
             return Response::json(array(

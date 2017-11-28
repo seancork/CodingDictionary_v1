@@ -9,11 +9,11 @@
 
              <div class="panel-body">
                     <ul class="nav nav-tabs">
-               <li class="active"><a href="#">Saved Words</a></li>
-                <li><a href="{{route('submitted_words')}}">Submitted Words</a></li>
+              <li><a href="{{route('home')}}">Saved Words</a></li>
+              <li><a href="{{route('submitted_words')}}">Submitted Words</a></li>
                   @if(Auth::user()->is_permission == 1)
-                   <li><a href="{{route('admin_main')}}">Admin</a></li>
-                   <li><a href="{{route('words_check')}}">Word(s) Check</a></li>
+              <li class="active"><a href="{{route('admin_main')}}">Admin</a></li>
+              <li><a href="{{route('words_check')}}">Word(s) Check</a></li>
                    @endif
                     </ul>
               <p>User Count: 

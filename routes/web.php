@@ -14,7 +14,7 @@
 Route::get('/term',['uses' => 'SearchController@getTerm','as' => 'term']);
 
 Route::get('/add', 'WordController@add')->name('add')->middleware('auth');
-Route::get('/submitted_words', 'WordController@submitted_words')->name('submitted_words')->middleware('auth');
+Route::get('/submitted_words', 'DashboardController@submitted_words')->name('submitted_words')->middleware('auth');
 
 Route::get('/', function () {
     return view('welcome');
@@ -43,10 +43,10 @@ Route::post ( '/voteword', 'VoteController@vote_word')->middleware('auth');
 
 Route::group(['middleware'=>'auth'], function () {
 
-Route::get ( '/admin_main', 'AdminController@admin_main')->name('admin_main')->middleware('check-permission:admin');
+Route::get ( '/admin_main', 'DashboardAdminController@admin_main')->name('admin_main')->middleware('check-permission:admin');
 
-Route::get('/words_check', 'DashboardController@words_check')->name('words_check')->middleware('check-permission:admin');
+Route::get('/words_check', 'DashboardAdminController@words_check')->name('words_check')->middleware('check-permission:admin');
 
-Route::post('/checkword', 'DashboardController@words_check_status')->name('checkword')->middleware('check-permission:admin');
+Route::post('/checkword', 'DashboardAdminController@words_check_status')->name('checkword')->middleware('check-permission:admin');
 
 });

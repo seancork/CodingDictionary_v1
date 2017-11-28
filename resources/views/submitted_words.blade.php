@@ -9,11 +9,11 @@
 
                 <div class="panel-body">
                     <ul class="nav nav-tabs">
-               <li class="active"><a href="#">Saved Words</a></li>
-                <li><a href="{{route('submitted_words')}}">Submitted Words</a></li>
+            <li><a href="{{route('home')}}">Saved Words</a></li>
+            <li class="active"><a href="{{route('submitted_words')}}">Submitted Words</a></li>
                   @if(Auth::user()->is_permission == 1)
-                   <li><a href="{{route('admin_main')}}">Admin</a></li>
-                   <li><a href="{{route('admin_main')}}">Word(s) Check</a></li>
+            <li><a href="{{route('admin_main')}}">Admin</a></li>
+            <li><a href="{{route('admin_main')}}">Word(s) Check</a></li>
                    @endif
                     </ul>
 
@@ -23,7 +23,7 @@
            <p>{{$word->description}}</p><br />
            @if($word->status == 1)
            <p>Status: Approved</p>
-           @elseif($word->status == 1)
+           @elseif($word->status == 2)
              <p>Status: Disproved</p>
            @elseif($word->status == 0)
             <p>Status: Waiting</p>

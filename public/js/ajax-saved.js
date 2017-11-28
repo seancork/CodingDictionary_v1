@@ -18,7 +18,7 @@ $(document).ready(function() {
                 }
                 else {
                 $('#'+button_id).html("Saved");
-                $('#'+button_id).removeClass('btn btn-default').addClass('btn btn-success');
+                $('#'+button_id).removeClass('btn btn-default btn-sm').addClass('btn btn-success btn-sm');
 
                 }
             },
@@ -42,7 +42,7 @@ $(document).ready(function() {
                 }
                 else {
                 $('#'+button_id).html("Save");
-                $('#'+button_id).removeClass('btn btn-success').addClass('btn btn-default');
+                $('#'+button_id).removeClass('btn btn-success btn-sm').addClass('btn btn-default btn-sm');
 
                 }
             },

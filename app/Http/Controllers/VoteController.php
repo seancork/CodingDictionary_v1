@@ -21,15 +21,10 @@ class VoteController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function vote_word(Request $request)
     {
          $validator = Validator::make($request->all(), [
-            'word_id' => 'required|min:1|max:100',
+            'word_id' => 'regex:/(^[A-Za-z0-9-]+$)+/|required|min:1|max:14',
         ]);
         if ($validator->fails()) {
             return Response::json(array(
@@ -55,8 +50,6 @@ class VoteController extends Controller
          elseif($getvotetypeVotes->deleted == 1){
                      Word::where('id',$get_id)->increment('vote_cache', 1);
                    }
-
-              //  Word::where('id',$get_id)->increment('vote_cache');
                 }elseif($type == "down"){
                 $getvotetypeVotes = Votes::select('vote_type', 'deleted')
                 ->where('word_id', '=', $get_id)->first();
@@ -101,13 +94,12 @@ class VoteController extends Controller
              response()->json(['success' => 'success'], 200);
          }else{
         response()->json(['failed' => 'failed'], 404);
-         }
-        }}    }
+         }}}}
 
     public function delete_liked(Request $request)
     {
        $validator = Validator::make($request->all(), [
-            'word_id' => 'required|min:1|max:100',
+            'word_id' => 'regex:/(^[A-Za-z0-9-]+$)+/|required|min:1|max:14',
         ]);
         if ($validator->fails()) {
             return Response::json(array(

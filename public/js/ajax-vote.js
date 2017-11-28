@@ -17,10 +17,7 @@ $(document).ready(function() {
                 }
                 else {
                 if(which == "up"){
-
-                    console.log("up - default to default")
                       check = ($('#down-'+thenum).hasClass("btn btn-success"));
-                      console.log(check);
                 $('#'+button_id).removeClass('btn btn-default').addClass('btn btn-success');
               $('#down-'+thenum).removeClass('btn btn-success').addClass('btn btn-default');
                
@@ -33,7 +30,6 @@ $(document).ready(function() {
                 }
                if(which == "down" ){
                  check = ($('#up-'+thenum).hasClass("btn btn-success"));
-                   console.log("down - default to default")
                $('#'+button_id).removeClass('btn btn-default').addClass('btn btn-success');
                $('#up-'+thenum).removeClass('btn btn-success').addClass('btn btn-default');
                  if(check == true){
@@ -66,12 +62,10 @@ $(document).ready(function() {
                 }
                 else {
                  if(which == "up"){
-                  console.log("up - sucess to default")
                 $('#'+button_id).removeClass('btn btn-success').addClass('btn btn-default');
                  vote_num("sub", thenum);
                 }
                if(which == "down" ){
-                console.log("down - sucess to default")
                $('#down-'+thenum).removeClass('btn btn-success').addClass('btn btn-default');
                 vote_num("add", thenum);
             
@@ -87,24 +81,19 @@ $(document).ready(function() {
     var number = computerScore.innerHTML;
       if(type == "add"){
     number = parseInt(number) + 1;
-    console.log("add"+number);
     computerScore.innerHTML = number;
   }
     if(type == "sub"){
         number = parseInt(number) -1;
-       console.log("sub"+number);
     computerScore.innerHTML = number;
 }
  if(type == "addbytwo"){
-  console.log("before: addbytwo: "+number);
    number = parseInt(number) + 2;
-    console.log("addbytwo: "+number);
     computerScore.innerHTML = number;
   }
 
   if(type == "subbytwo"){
        number = parseInt(number) - 2;
-      console.log("subbytwo: "+number);
     computerScore.innerHTML = number;
   }
 
