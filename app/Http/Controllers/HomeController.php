@@ -11,11 +11,12 @@ class HomeController extends Controller
      * Create a new controller instance.
      *
      * @return void
-     */
+    // If this class is used, you must be logged in user to see any page within this controller.
     public function __construct()
     {
         $this->middleware('auth');
     }
+ */
 
     /**
      * HomePage controller

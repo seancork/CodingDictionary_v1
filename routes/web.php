@@ -16,6 +16,8 @@ Route::get('/term',['uses' => 'SearchController@getTerm','as' => 'term']);
 Route::get('/add', 'WordController@add')->name('add')->middleware('auth');
 Route::get('/submitted_words', 'DashboardController@submitted_words')->name('submitted_words')->middleware('auth');
 
+Route::get('/', 'HomeController@index_recent_words')->name('welcome');
+
 Route::get('contact', function () {
    return view('contact');
 });
@@ -23,8 +25,6 @@ Route::get('contact', function () {
 Route::get('suggestions', function () {
    return view('suggestions');
 });
-
-Route::get('/', 'HomeController@index_recent_words')->name('welcome');
 
 Auth::routes();
 
