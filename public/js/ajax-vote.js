@@ -28,7 +28,7 @@ $(document).ready(function() {
                    vote_num("add",thenum);
                 }
                 }
-               if(which == "down" ){
+               if(which == "down"){
                  check = ($('#up-'+thenum).hasClass("btn btn-success"));
                $('#'+button_id).removeClass('btn btn-default').addClass('btn btn-success');
                $('#up-'+thenum).removeClass('btn btn-success').addClass('btn btn-default');
@@ -42,7 +42,6 @@ $(document).ready(function() {
             }
             },
         });
-        $('#name').val('');
 });
     $(".vote").on('click', ".btn-success", function() {
      button_id =  this.id;
@@ -67,17 +66,14 @@ $(document).ready(function() {
                 }
                if(which == "down" ){
                $('#down-'+thenum).removeClass('btn btn-success').addClass('btn btn-default');
-                vote_num("add", thenum);
-            
+                vote_num("add", thenum); 
                }
-                }
-            },
-
+            }
+          },
         });
-        $('#name').val('');
-});
+    });
     function vote_num(type, id) {
-    var computerScore = document.getElementById(id);
+    var computerScore = document.getElementById("vote-"+id);
     var number = computerScore.innerHTML;
       if(type == "add"){
     number = parseInt(number) + 1;
@@ -96,6 +92,4 @@ $(document).ready(function() {
        number = parseInt(number) - 2;
     computerScore.innerHTML = number;
   }
-
-}
-});
+}});

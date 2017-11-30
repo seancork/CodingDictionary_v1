@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Word;
 
 class HomeController extends Controller
 {
@@ -17,12 +18,14 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * HomePage controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index_recent_words()
     {
-        return view('home');
+        $recent_words = Word::orderBy('created_at','word_id')->take(10)->get()->reverse();
+
+          return view('welcome',compact('recent_words'));
     }
 }

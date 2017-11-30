@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Response;
-
 use App\Votes;
 use App\Word;
 
@@ -39,10 +38,11 @@ class VoteController extends Controller
              //if word_id already exists for this user, update deleted column
             if($type == "up"){
                 $getvotetypeVotes = Votes::select('vote_type', 'deleted')
+                 ->where('user_id', '=', \Auth::user()->id)
                 ->where('word_id', '=', $get_id)->first();
 
                 Votes::where('word_id',$get_id)
-                    ->where('user_id',\Auth::user()->id)->update(['deleted'=> 0, 'vote_type' => 1]);
+                ->where('user_id',\Auth::user()->id)->update(['deleted'=> 0, 'vote_type' => 1]);
 
             if($getvotetypeVotes->vote_type == 0 && $getvotetypeVotes->deleted == 0){
                    Word::where('id',$get_id)->increment('vote_cache', 2);
@@ -52,22 +52,24 @@ class VoteController extends Controller
                    }
                 }elseif($type == "down"){
                 $getvotetypeVotes = Votes::select('vote_type', 'deleted')
+                ->where('user_id', '=', \Auth::user()->id)
                 ->where('word_id', '=', $get_id)->first();
 
                   Votes::where('word_id',$get_id)
                     ->where('user_id',\Auth::user()->id)->update(['deleted'=> 0, 'vote_type' => 0]);
     if($getvotetypeVotes->vote_type == 1 && $getvotetypeVotes->deleted == 0){
                      Word::where('id',$get_id)->decrement('vote_cache', 2);
+                     return response()->json(['decrement by 2' => 'decrement by 2'], 200);
                    }
      elseif($getvotetypeVotes->deleted == 1){
                      Word::where('id',$get_id)->decrement('vote_cache', 1);
+                     return response()->json(['decrement by 1' => 'decrement by 1'], 200);
                    }
-
                 }else{
-                     response()->json(['error' => 'error'], 404);
+                    return response()->json(['error' => 'error'], 404);
                 }
-         
-          response()->json(['success' => 'success'], 200);
+             return response()->json([$get_id, $type, $getvotetypeVotes->vote_type, $getvotetypeVotes->deleted], 200);
+        
         }else{
              if($type == "up"){
           $save_vote = new Votes;
@@ -91,9 +93,9 @@ class VoteController extends Controller
 
             Word::where('id',$get_id)->decrement('vote_cache');
 
-             response()->json(['success' => 'success'], 200);
+             return response()->json(['decrment' => 'decrment'], 200);
          }else{
-        response()->json(['failed' => 'failed'], 404);
+      return  response()->json(['failed' => 'failed'], 404);
          }}}}
 
     public function delete_liked(Request $request)

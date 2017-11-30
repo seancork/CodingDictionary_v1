@@ -16,15 +16,19 @@ Route::get('/term',['uses' => 'SearchController@getTerm','as' => 'term']);
 Route::get('/add', 'WordController@add')->name('add')->middleware('auth');
 Route::get('/submitted_words', 'DashboardController@submitted_words')->name('submitted_words')->middleware('auth');
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('contact', function () {
+   return view('contact');
 });
+
+Route::get('suggestions', function () {
+   return view('suggestions');
+});
+
+Route::get('/', 'HomeController@index_recent_words')->name('welcome');
 
 Auth::routes();
 
 Route::post('add_word', 'WordController@add_word')->name('add_word')->middleware('auth');
-
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 Auth::routes();
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserSavedWords extends Model
 {
-        public $timestamps = false;
+       // public $timestamps = false;
 
         protected $fillable = [
         'user_id', 'word_id', 'deleted',

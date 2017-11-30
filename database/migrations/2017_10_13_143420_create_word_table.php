@@ -21,6 +21,7 @@ class CreateWordTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('vote_cache');
+            $table->timestamps();
         });
     }
 

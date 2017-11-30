@@ -16,7 +16,10 @@
             <li><a href="{{route('admin_main')}}">Word(s) Check</a></li>
                    @endif
                     </ul>
-
+@if (count($user_words) === 0)
+  <br />
+ <p>You have Submitted no words yet :(</p>  
+    @elseif (count($user_words) >= 1)
             @foreach($user_words as $indexKey => $word)
         <hr />
            <h1>{{$word->word}}</h1>
@@ -30,6 +33,7 @@
                     @endif
 
             @endforeach
+             @endif
         <hr />
                 </div>
             </div>
