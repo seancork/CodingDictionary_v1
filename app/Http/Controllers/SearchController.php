@@ -33,8 +33,8 @@ class SearchController extends Controller
     public function getTerm(Request $request)
     {
   //get keywords input for search
-        $word=  \Request::get('w');
-         $what_word1 = \Request::get('w');
+        $word=   strip_tags(\Request::get('w'));
+         $what_word1 =  strip_tags(\Request::get('w'));
         //search that student in Database
         // $student= Student::find($keyword);
 

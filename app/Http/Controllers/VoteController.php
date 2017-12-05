@@ -59,11 +59,9 @@ class VoteController extends Controller
                     ->where('user_id',\Auth::user()->id)->update(['deleted'=> 0, 'vote_type' => 0]);
     if($getvotetypeVotes->vote_type == 1 && $getvotetypeVotes->deleted == 0){
                      Word::where('id',$get_id)->decrement('vote_cache', 2);
-                     return response()->json(['decrement by 2' => 'decrement by 2'], 200);
                    }
      elseif($getvotetypeVotes->deleted == 1){
                      Word::where('id',$get_id)->decrement('vote_cache', 1);
-                     return response()->json(['decrement by 1' => 'decrement by 1'], 200);
                    }
                 }else{
                     return response()->json(['error' => 'error'], 404);
@@ -92,8 +90,6 @@ class VoteController extends Controller
              $save_vote->save();
 
             Word::where('id',$get_id)->decrement('vote_cache');
-
-             return response()->json(['decrment' => 'decrment'], 200);
          }else{
       return  response()->json(['failed' => 'failed'], 404);
          }}}}
