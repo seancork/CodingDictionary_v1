@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use DB;
+use Mail;
+use Session;
 use App\User;
+use Validator;
+use Illuminate\Http\Request;
+use App\Mail\EmailVerification;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -67,6 +72,30 @@ class RegisterController extends Controller
            'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'email_token' => str_random(10),
+
         ]);
     }
+
+       protected function registered(Request $request, $user)
+    {
+        $user = $user->toArray();
+    
+   Mail::send('emails.verification', $user, function($message) use ($user) {
+                $message->to($user['email']);
+                $message->subject('Site - Activation Code');
+            });
+       
+        
+    }
+
+       public function verify($token)
+    {
+        // The verified method has been added to the user model and chained here
+        // for better readability
+        User::where('email_token',$token)->firstOrFail()->verified();
+        return redirect('login');
+    }
+
+    
 }

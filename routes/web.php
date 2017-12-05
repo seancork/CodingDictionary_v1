@@ -32,6 +32,8 @@ Route::post('add_word', 'WordController@add_word')->name('add_word')->middleware
 
 Auth::routes();
 
+Route::get('/resend_email', 'DashboardController@resent_email')->name('resend_email')->middleware('auth');
+
 Route::get('/home', 'DashboardController@get_saved_words')->name('home')->middleware('auth');
 
 Route::post ( '/saveword', 'WordController@save_word')->middleware('auth');
@@ -40,6 +42,12 @@ Route::post ( '/removeword', 'VoteController@delete_liked')->middleware('auth');
 Route::post ( '/removesave', 'WordController@remove_word')->middleware('auth');
 
 Route::post ( '/voteword', 'VoteController@vote_word')->middleware('auth');
+
+Route::get('register/verify/{token}', 'Auth\RegisterController@verify'); 
+
+Route::get('/account', 'DashboardController@account')->name('account')->middleware('auth');
+Route::post('edit_account', 'DashboardController@edit_account')->name('edit_account')->middleware('auth');
+
 
 ///////////////////////////////////////////////////////////
 // Admin only routes
