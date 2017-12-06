@@ -66,8 +66,6 @@ class VoteController extends Controller
                 }else{
                     return response()->json(['error' => 'error'], 404);
                 }
-             return response()->json([$get_id, $type, $getvotetypeVotes->vote_type, $getvotetypeVotes->deleted], 200);
-        
         }else{
              if($type == "up"){
           $save_vote = new Votes;

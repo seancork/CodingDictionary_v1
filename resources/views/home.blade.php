@@ -8,7 +8,11 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Dashboard</div>
-
+@if(session()->has('message'))
+    <div class="alert alert-success">
+        {{ session()->get('message') }}
+    </div>
+@endif
                <div class="panel-body">
                     <ul class="nav nav-tabs">
                <li class="active"><a href="{{route('home')}}">Saved Words</a></li>
