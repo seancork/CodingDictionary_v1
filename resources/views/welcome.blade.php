@@ -24,7 +24,8 @@
      <hr />
         <h4>Recently Added</h4></h4>
             @foreach($recent_words as $indexKey => $word)
-                <p class="text-center">  {{$word->word}}</p>
+         <p class="text-center">
+         <h5><a href="{{ route('term') }}?w={{$word->word}}">{{$word->word}}</a></p></h5>
             @endforeach
              @endif
       </form>
