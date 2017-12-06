@@ -27,7 +27,7 @@ class WordController extends Controller
     public function add_word(Request $request)
     {
      $validator = Validator::make($request->all(), [
-        'word' => 'required|min:1|max:191',
+        'word' => 'required|alpha_num|min:1|max:191',
         'desc' => 'required|min:1|max:255',
     ]);
 

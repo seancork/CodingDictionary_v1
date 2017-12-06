@@ -22,8 +22,8 @@
         <br />
     @elseif (count($recent_words) >= 5)
      <hr />
+        <h4>Recently Added</h4></h4>
             @foreach($recent_words as $indexKey => $word)
-         <h4>Recently Added</h4></h4>
                 <p class="text-center">  {{$word->word}}</p>
             @endforeach
              @endif

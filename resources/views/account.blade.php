@@ -16,7 +16,13 @@
  Please verify your email, if you have not received a verification email,
  <a href="{{ route('resend_email') }}">click here to resend.</a>
 </div>
+@elseif ($user->verified == 1)
+   <div class="alert alert-success">
+  Your Email is already verified :)
+</div>
+
 @endif
+
                 <div class="panel-body">
               <form class="form-horizontal" method="POST" action="{{ route('edit_account') }}">
                         {{ csrf_field() }}
