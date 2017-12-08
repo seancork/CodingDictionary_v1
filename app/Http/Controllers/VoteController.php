@@ -32,40 +32,26 @@ class VoteController extends Controller
         } else {
             $get_id = preg_replace("/[^0-9]/","",$request->word_id); 
             $type =  preg_replace("/[^a-zA-Z]+/", "", $request->word_id);
-          if (Votes::where('word_id', '=', $get_id)
+
+        if (Votes::where('word_id', '=', $get_id)
                             ->where('user_id', '=', \Auth::user()->id)->exists()) {
-             
-             //if word_id already exists for this user, update deleted column
-            if($type == "up"){
-                $getvotetypeVotes = Votes::select('vote_type', 'deleted')
-                 ->where('user_id', '=', \Auth::user()->id)
-                ->where('word_id', '=', $get_id)->first();
 
-                Votes::where('word_id',$get_id)
+        if($type == "up"){
+             Votes::where('word_id',$get_id)
                 ->where('user_id',\Auth::user()->id)->update(['deleted'=> 0, 'vote_type' => 1]);
+        }elseif($type == "down"){
+            Votes::where('word_id',$get_id)
+                ->where('user_id',\Auth::user()->id)->update(['deleted'=> 0, 'vote_type' => 0]);
+        }
+                   $up_count = Votes::where('vote_type','=','1')
+                                  ->where('deleted','=','0')
+                                  ->where('word_id','=',$get_id)->count();
 
-            if($getvotetypeVotes->vote_type == 0 && $getvotetypeVotes->deleted == 0){
-                   Word::where('id',$get_id)->increment('vote_cache', 2);
-                 }
-         elseif($getvotetypeVotes->deleted == 1){
-                     Word::where('id',$get_id)->increment('vote_cache', 1);
-                   }
-                }elseif($type == "down"){
-                $getvotetypeVotes = Votes::select('vote_type', 'deleted')
-                ->where('user_id', '=', \Auth::user()->id)
-                ->where('word_id', '=', $get_id)->first();
-
-                  Votes::where('word_id',$get_id)
-                    ->where('user_id',\Auth::user()->id)->update(['deleted'=> 0, 'vote_type' => 0]);
-    if($getvotetypeVotes->vote_type == 1 && $getvotetypeVotes->deleted == 0){
-                     Word::where('id',$get_id)->decrement('vote_cache', 2);
-                   }
-     elseif($getvotetypeVotes->deleted == 1){
-                     Word::where('id',$get_id)->decrement('vote_cache', 1);
-                   }
-                }else{
-                    return response()->json(['error' => 'error'], 404);
-                }
+                    $down_count = Votes::where('vote_type','=','0')
+                                  ->where('deleted','=','0')
+                                  ->where('word_id','=',$get_id)->count();
+                   
+        Word::where('id',$get_id)->update(['vote_cache'=>  $up_count - $down_count]);
         }else{
              if($type == "up"){
           $save_vote = new Votes;
@@ -73,19 +59,19 @@ class VoteController extends Controller
             $save_vote->deleted = 0;
             $save_vote->user_id = \Auth::user()->id;
             $save_vote->vote_type =  1;
-             $save_vote->save();
+            $save_vote->save();
            
            Word::where('id',$get_id)->increment('vote_cache');
 
               response()->json(['success' => 'success'], 200);
 
         }elseif($type == "down"){
-             $save_vote = new Votes;
+            $save_vote = new Votes;
             $save_vote->word_id = $get_id;
             $save_vote->deleted = 0;
             $save_vote->user_id = \Auth::user()->id;
             $save_vote->vote_type =  0;
-             $save_vote->save();
+            $save_vote->save();
 
             Word::where('id',$get_id)->decrement('vote_cache');
          }else{
@@ -102,19 +88,26 @@ class VoteController extends Controller
                     'errors' => $validator->getMessageBag()->toArray(),
             ));
         } else {
-              $get_id = preg_replace("/[^0-9]/","",$request->word_id); 
+             $get_id = preg_replace("/[^0-9]/","",$request->word_id); 
+             $type =  preg_replace("/[^a-zA-Z]+/", "", $request->word_id);
+         
           if (Votes::where('word_id', '=', $get_id)
+                            ->where('deleted', '=', 0)
                             ->where('user_id', '=', \Auth::user()->id)->exists()) {
-             Votes::where('word_id',$get_id)
+
+            Votes::where('word_id',$get_id)
                     ->where('user_id',\Auth::user()->id)->update(['deleted'=> 1]);
-           $type =  preg_replace("/[^a-zA-Z]+/", "", $request->word_id);
-           if($type == "up"){
-            Word::where('id',$get_id)->decrement('vote_cache');
-        }
-          if($type == "down"){
-             Word::where('id',$get_id)->increment('vote_cache');
-          }
-    }}}
+          
+                $up_count = Votes::where('vote_type','=','1')
+                                  ->where('deleted','=','0')
+                                  ->where('word_id','=',$get_id)->count();
+
+                $down_count = Votes::where('vote_type','=','0')
+                                  ->where('deleted','=','0')
+                                  ->where('word_id','=',$get_id)->count();
+
+            Word::where('id',$get_id)->update(['vote_cache'=>  $up_count - $down_count]);
+        }}}
 
     /**
      * Store a newly created resource in storage.
