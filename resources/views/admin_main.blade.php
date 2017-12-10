@@ -16,7 +16,7 @@
               <li><a href="{{route('words_check')}}">Word(s) Check</a></li>
                    @endif
                     </ul>
-              <p>User Count: 
+              <p>User Count: {{$count_users}}
                 </div>
             </div>
         </div>

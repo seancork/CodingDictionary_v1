@@ -12,10 +12,7 @@ class DashboardAdminController extends Controller
 {
     public function admin_main()
     {
-
      $count_users = User::count();
-
-       
             return view('admin_main',compact('count_users'));
 }
 
