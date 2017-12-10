@@ -89,8 +89,13 @@ $(document).ready(function(){
 </div>
  @endif
  <hr />
-  </div>
-</div>
+      @if (count($what_word) === 0)
+      
+      @else
+<p margin: 0; padding: 0;>Have a better explanation?
+    <a href="{{ url('add') }}">Add yours.</a></p>
+    @endif
+     </div></div>
   <ul class="cd-pagination no-space">
         {{ $what_word->appends(array('w' => $what_word1))->render() }}
                   </ul>

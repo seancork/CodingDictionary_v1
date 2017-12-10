@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\User; 
+use Validator;
+use Response;
+
 
 class UserVerificationController extends Controller
 {
@@ -15,26 +20,47 @@ class UserVerificationController extends Controller
     |
     */
 
-    public function userVerified($token)
-    {
-        $check = DB::table('user_verified')->where('token',$token)->first();
+    public function verify($token, $email){
+          $validator = Validator::make( 
+        [
+            'email' => $email,
+            'token' => $token,
+          ],
 
-        if(!is_null($check)){
-            $user = User::find($check->id_user);
-
-            if($user->is_activated == 1){
-                return redirect()->to('login')
-                    ->with('success',"Email already verified.");                
-            }
-
-            $user->update(['is_verified' => 1]);
-            DB::table('users_verification')->where('token',$token)->delete();
-
-            return redirect()->to('login')
-                ->with('success',"Email successfully verified.");
-        }
-
-        return redirect()->to('login')
-                ->with('warning',"your token is invalid.");
-    }
+            [
+            'email' => 'required|string|email|max:255',
+            'token' => 'required|alpha_num|min:1|max:10',
+        ]);
+        if ($validator->fails()) {
+            return Response::json(array(
+                    'errors' => $validator->getMessageBag()->toArray(),
+            ));
+        } else {
+        $check_verified = User::select('verified')->where('email',$email)->first();
+    
+    if($check_verified->verified == 1){
+    if($user = Auth::user()){
+     return redirect('home')->with('message', 'Your email has already been verified.');
+    }else{
+        return redirect('login')
+         ->with('message', 'Your email has already been verified.');
+    }}else{
+        try {
+            User::where('email_token',$token)->
+                  where('email',$email)->firstOrFail()->verified();
+    
+}catch(\Exception $e){
+    if($user = Auth::user()){
+     return redirect('home')->with('message', 'Something went wrong :( Please try again.');
+}else{
+    return redirect('login')
+        ->with('message', 'Something went wrong :( Please try again.');
+    }}
+        if($user = Auth::user()){
+     return redirect('home')->with('message', 'Email has been Verified.');
+}else{
+        return redirect('login')->with('message', 'Email has been Verified.');
+      }  
+   }}
+  }
 }

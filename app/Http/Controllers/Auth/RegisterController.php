@@ -87,43 +87,4 @@ class RegisterController extends Controller
                 $message->subject('Site - Activation Code');
             }); 
     }
-
-       public function verify($from_email){
-        $myArray = explode('&', $from_email);
-        
- $check_verified = User::select('verified')
- ->where('email',$myArray[1])
-            ->first();
- if($check_verified->verified == 1){
-    if($user = Auth::user()){
-     return redirect('home')
-       ->with('message', 'Your email has already been verified.');
-}else{
-        return redirect('login')
-         ->with('message', 'Your email has already been verified.');
-    } }else{
-        try {
-            User::where('email_token',$myArray[0])->
-                  where('email',$myArray[1])
-            ->firstOrFail()->verified();
-    
-}catch(\Exception $e){
-    if($user = Auth::user())
-{
-     return redirect('home')
-       ->with('message', 'Something went wrong :( Please try again.');
-}else{
-        return redirect('login')
-        ->with('message', 'Something went wrong :( Please try again.');
-    }  }
-
-        if($user = Auth::user())
-{
-     return redirect('home')
-         ->with('message', 'Email has been Verified.');
-}else{
-        return redirect('login')
-         ->with('message', 'Email has been Verified.');
-    }  
-}}
-}
+  }

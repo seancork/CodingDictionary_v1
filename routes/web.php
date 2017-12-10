@@ -18,12 +18,8 @@ Route::get('/submitted_words', 'DashboardController@submitted_words')->name('sub
 
 Route::get('/', 'HomeController@index_recent_words')->name('welcome');
 
-Route::get('contact', function () {
-   return view('contact');
-});
-
-Route::get('suggestions', function () {
-   return view('suggestions');
+Route::get('about', function () {
+   return view('about');
 });
 
 Auth::routes();
@@ -43,7 +39,7 @@ Route::post ( '/removesave', 'WordController@remove_word')->middleware('auth');
 
 Route::post ( '/voteword', 'VoteController@vote_word')->middleware('auth');
 
-Route::get('register/verify/{token}', 'Auth\RegisterController@verify'); 
+Route::get('register/verify/{token}&e={email}', 'Auth\UserVerificationController@verify'); 
 
 Route::get('/account', 'DashboardController@account')->name('account')->middleware('auth');
 Route::post('edit_account', 'DashboardController@edit_account')->name('edit_account')->middleware('auth');

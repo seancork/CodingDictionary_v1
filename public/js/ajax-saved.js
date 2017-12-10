@@ -2,6 +2,9 @@ $(document).ready(function() {
      $(".wordsave").on('click', ".btn-default", function() {
      button_id =  this.id;
 
+ $('#'+button_id).html("Saved");
+                $('#'+button_id).removeClass('btn btn-default btn-sm').addClass('btn btn-success btn-sm');
+        
         $.ajax({
             type: 'post',
             url: '/saveword',
@@ -17,17 +20,18 @@ $(document).ready(function() {
                     $('.error').text(data.errors.name);
                 }
                 else {
-                $('#'+button_id).html("Saved");
-                $('#'+button_id).removeClass('btn btn-default btn-sm').addClass('btn btn-success btn-sm');
 
                 }
             },
 
         });
-        $('#name').val('');
 });
    $(".wordsave").on('click', ".btn-success", function() {
      button_id =  this.id;
+
+          $('#'+button_id).html("Save");
+                $('#'+button_id).removeClass('btn btn-success btn-sm').addClass('btn btn-default btn-sm');
+
         $.ajax({
             type: 'post',
             url: '/removesave',
@@ -41,14 +45,11 @@ $(document).ready(function() {
                     $('.error').text(data.errors.name);
                 }
                 else {
-                $('#'+button_id).html("Save");
-                $('#'+button_id).removeClass('btn btn-success btn-sm').addClass('btn btn-default btn-sm');
 
                 }
             },
 
         });
-        $('#name').val('');
 });
 
       $(".dashboard-unsave").on('click', ".btn-success", function() {
@@ -74,6 +75,5 @@ $(document).ready(function() {
             },
 
         });
-        $('#name').val('');
 });
 });

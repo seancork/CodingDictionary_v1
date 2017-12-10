@@ -78,8 +78,8 @@
            <footer class="footer">
       <div class="container">
    <span class="text-muted">
-      <a href="{{ url('contact') }}">Contact</a> |
-      <a href="{{ url('suggestions') }}">Suggestions</a>
+      <a href="https://twitter.com/Coding_D">Twitter</a> || 
+      <a href="{{ url('about') }}">About</a>
     </span>
       </div>
     </footer>

@@ -63,7 +63,7 @@ class VoteController extends Controller
            
            Word::where('id',$get_id)->increment('vote_cache');
 
-              response()->json(['success' => 'success'], 200);
+            return  response()->json(['success' => 'success'], 200);
 
         }elseif($type == "down"){
             $save_vote = new Votes;
