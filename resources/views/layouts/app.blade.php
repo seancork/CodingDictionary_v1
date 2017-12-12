@@ -94,7 +94,18 @@
       </div>
     </footer>
     </div>
+  @if(Auth::user()->is_permission !=  1 && env('APP_ENV') != "local")
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111023536-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-111023536-1');
+</script>
+ <!-- End -->
+ @endif
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
