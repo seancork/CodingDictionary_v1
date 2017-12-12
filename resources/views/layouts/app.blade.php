@@ -86,7 +86,7 @@
     </div>
 
     <!-- Scripts -->
-      @if(Auth::user()->is_permission !=  1 && env('APP_ENV') != "local")
+      @if(env('APP_ENV') != "local")
     <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111023536-1"></script>
 <script>
