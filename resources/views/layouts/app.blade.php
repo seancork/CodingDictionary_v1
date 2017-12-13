@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111023536-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-111023536-1');
+</script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -88,14 +96,7 @@
     <!-- Scripts -->
       @if(env('APP_ENV') != "local")
     <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111023536-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'UA-111023536-1');
-</script>
  <!-- End -->
  @endif
     <script src="{{ asset('js/app.js') }}"></script>
