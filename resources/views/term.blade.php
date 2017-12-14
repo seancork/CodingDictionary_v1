@@ -14,6 +14,7 @@ $(document).ready(function(){
     });
 });
 </script>
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -25,9 +26,13 @@ $(document).ready(function(){
  <p>This word does not seem to be added yet :( Why Not add it?  
     <a href="{{ route('add') }}">Click Here</a></p>
 @elseif (count($what_word) >= 1)
+
 <div id="block_container">
              @foreach($what_word as $indexKey => $word)
             @if($indexKey==0)
+            @section('title')
+    - {{$word->word}}
+        @stop
            <h1>{{$word->word}}</h1>
            @endif
            <hr />
