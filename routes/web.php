@@ -44,6 +44,8 @@ Route::get('register/verify/{token}&e={email}', 'Auth\UserVerificationController
 Route::get('/account', 'DashboardController@account')->name('account')->middleware('auth');
 Route::post('edit_account', 'DashboardController@edit_account')->name('edit_account')->middleware('auth');
 
+Route::get('/sitemap.xml', 'SitemapController@index');
+Route::get('/sitemap.xml/words', 'SitemapController@words');
 
 ///////////////////////////////////////////////////////////
 // Admin only routes
