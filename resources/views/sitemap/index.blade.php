@@ -2,6 +2,6 @@
 
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <sitemap>
-        <loc>codingdictionary.com/sitemap.xml/words</loc>
+        <loc>https://codingdictionary.com/sitemap.xml/words</loc>
     </sitemap>
 </sitemapindex>
