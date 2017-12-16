@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Input;
 use App\Word;
 use App\UserSavedWords;
 use App\Votes;
+use Response;
 
 class SearchController extends Controller
 {
@@ -80,4 +81,14 @@ class SearchController extends Controller
 }
 
 
-}}
+}
+
+ public function live_search_add(Request $request)
+    {
+    $get_word = Word::where('word', '=', $request->search)->first();
+    if( (empty($get_word))) { 
+   return "new";
+    }else{
+     return "exists";
+    }}
+}

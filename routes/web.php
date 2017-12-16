@@ -47,6 +47,8 @@ Route::post('edit_account', 'DashboardController@edit_account')->name('edit_acco
 Route::get('/sitemap.xml', 'SitemapController@index');
 Route::get('/sitemap.xml/words', 'SitemapController@words');
 
+Route::get('/wordexist', 'SearchController@live_search_add')->name('wordexist')->middleware('auth');
+
 ///////////////////////////////////////////////////////////
 // Admin only routes
 ///////////////////////////////////////////////////////////

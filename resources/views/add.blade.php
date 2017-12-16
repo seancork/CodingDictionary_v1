@@ -1,7 +1,7 @@
 @extends('layouts.app')
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="{{ asset('js/char-count.js') }}"></script>
-
+  <script src="{{ asset('js/auto-search-term.js') }}"></script>
 @section('content')
 <div class="container">
     <div class="row">
@@ -14,6 +14,9 @@
                         {{ csrf_field() }}
 
                          <div class="form-group{{ $errors->has('word') ? ' has-error' : '' }}">
+                            <div id="word_check" class="alert alert-info" style="display:none">
+                          This term already exists, but feel free to add your own version of it :).
+                             </div>
                             <label for="word" class="col-md-4 control-label">Word</label>
                             <div class="col-md-6">
                                 <input id="word" type="text" class="form-control" name="word" value="{{ old('word') }}" required>
