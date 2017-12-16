@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Word;
 use App\User;
+use App\Searches;
 use Response;
 
 class DashboardAdminController extends Controller
@@ -13,7 +14,8 @@ class DashboardAdminController extends Controller
     public function admin_main()
     {
      $count_users = User::count();
-            return view('admin_main',compact('count_users'));
+     $searches = Searches::orderBy('created_at', 'created_at')->get();
+            return view('admin_main',compact('count_users','searches'));
 }
 
  public function words_check()

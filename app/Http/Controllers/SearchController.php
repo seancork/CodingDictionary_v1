@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use App\Word;
 use App\UserSavedWords;
+use App\Searches;
 use App\Votes;
 use Response;
 
@@ -36,14 +37,28 @@ class SearchController extends Controller
   //get keywords input for search
         $word=   strip_tags(\Request::get('w'));
          $what_word1 =  strip_tags(\Request::get('w'));
-        //search that student in Database
-        // $student= Student::find($keyword);
 
            $what_word = Word::select('word', 'description','id','vote_cache')
                 ->where('word', '=', $word)
                 ->where('status', '=', 1)
                   ->orderBy('vote_cache', 'status')
                 ->paginate(10);
+
+            if (count($what_word) === 0){
+          $term_saved = new Searches;
+            $term_saved->searched = $word;
+            $term_saved->if_exists = 0;
+            $term_saved->save();
+          }elseif(count($what_word) > 0){
+            $term_saved = new Searches;
+            $term_saved->searched = $word;
+            $term_saved->if_exists = 1;
+            $term_saved->save();
+
+          }else{
+            //notting
+          }
+
     if (Auth::check()) {
     $id_list = [];
        foreach($what_word as $indexKey => $word)

@@ -19,7 +19,7 @@
                 <li><a href="{{route('submitted_words')}}">Submitted Words</a></li>
                   @if(Auth::user()->is_permission == 1)
                    <li><a href="{{route('admin_main')}}">Admin</a></li>
-                   <li><a href="{{route('admin_main')}}">Word(s) Check</a></li>
+                   <li><a href="{{route('words_check')}}">Word(s) Check</a></li>
                    @endif
                     </ul>
   @if (count($saved_words) === 0)

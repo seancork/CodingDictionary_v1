@@ -16,7 +16,26 @@
               <li><a href="{{route('words_check')}}">Word(s) Check</a></li>
                    @endif
                     </ul>
-              <p>User Count: {{$count_users}}
+                    <h1>Users</h1>
+              <p>User Count: {{$count_users}}</p>
+
+              <h1>Searches</h1>
+                 <table class="table">
+    <thead>
+      <tr><th>Searched</th><th>Time</th><th>Exists</th></tr>
+    </thead>
+                 @foreach($searches as $search)          
+    <tbody>
+      @if($search->if_exists == 0)
+      <tr class="danger">
+       @else
+     @endif
+        <td>{{$search->searched}}</td><td>{{$search->created_at->diffForHumans()}}</td>
+        <td>{{$search->if_exists}}</td></tr>
+                 @endforeach
+    </tbody>
+    </table>
+                   </div>
                 </div>
             </div>
         </div>
