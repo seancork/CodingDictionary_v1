@@ -17,8 +17,8 @@ class SitemapController extends Controller
 }
 
  public function words()
-    {
-        $words = Word::latest()->get();
+    { 
+          $words = Word::where('status', '=', 1)->latest()->get();
        $usersUnique = $words->unique('word');
         return response()->view('sitemap.words', [
             'words' => $usersUnique,
