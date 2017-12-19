@@ -20,9 +20,10 @@
               <p>User Count: {{$count_users}}</p>
 
               <h1>Searches</h1>
+              <p>red = word does not exist.</p>
                  <table class="table">
     <thead>
-      <tr><th>Searched</th><th>Time</th><th>Exists</th></tr>
+      <tr><th>Searched</th><th>Time</th><th>Searched By</th></tr>
     </thead>
                  @foreach($searches as $search)          
     <tbody>
@@ -31,10 +32,16 @@
        @else
      @endif
         <td>{{$search->searched}}</td><td>{{$search->created_at->diffForHumans()}}</td>
-        <td>{{$search->if_exists}}</td></tr>
+        @if($search->searched_by == 1)
+        <td>FrontPage</td></tr>
+        @else
+          <td>Unknown :(</td></tr>
+        @endif
                  @endforeach
     </tbody>
     </table>
+    <div class="text-center">
+            {!! $searches->render() !!}</div>
                    </div>
                 </div>
             </div>

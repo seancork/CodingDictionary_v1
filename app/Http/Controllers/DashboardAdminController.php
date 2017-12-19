@@ -14,7 +14,7 @@ class DashboardAdminController extends Controller
     public function admin_main()
     {
      $count_users = User::count();
-     $searches = Searches::orderBy('created_at', 'created_at')->get();
+     $searches = Searches::orderBy('created_at', 'created_at')->paginate(50);
             return view('admin_main',compact('count_users','searches'));
 }
 
