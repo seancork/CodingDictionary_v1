@@ -9,8 +9,8 @@
 
          <div class="panel-body">
     <div class="search-box-frontpage text-center">
-     <form role="form" class="search" method="GET" action="{{ route('term') }}">
-           
+     <form role="form" class="search" method="POST" action="{{ route('search') }}">
+               {{ csrf_field() }}
          <h3 class="no-margin-top h3"></h3>
          <div class="input-group input-group-lg">
             <input type="search" name="w" placeholder="search" class="form-control">
@@ -25,7 +25,7 @@
         <h4>Recently Added</h4></h4>
             @foreach($recent_words as $indexKey => $word)
          <p class="text-center">
-         <h5><a href="{{ route('term') }}?w={{$word->word}}">{{$word->word}}</a></p></h5>
+         <h5><a href="{{ route('term') }}?w={{urlencode($word->word)}}">{{$word->word}}</a></p></h5>
             @endforeach
              @endif
       </form>

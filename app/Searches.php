@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Searches extends Model
 {
         protected $fillable = [
-        'searched', 'if_exists',
+        'searched', 'if_exists', 'searched_by',
     ];
 }

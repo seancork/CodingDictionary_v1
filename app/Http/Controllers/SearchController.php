@@ -17,24 +17,33 @@ class SearchController extends Controller
      * Create a new controller instance.
      *
      * @return void
-     
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
+  **/
+    public function index(){
         return view('home');
     }
 
-    public function getTerm(Request $request)
-    {
-  //get keywords input for search
+     public function search_front(Request $request){
+       $get_word = Word::where('word', '=', $request->w)->first();
+ 
+       if( (empty($get_word))) { 
+          $term_saved = new Searches;
+            $term_saved->searched = $request->w;
+            $term_saved->if_exists = 0;
+            $term_saved->searched_by = 1; //1 = searchbar on main page was used
+            $term_saved->save();
+          }elseif((!empty($get_word))){
+            $term_saved = new Searches;
+            $term_saved->searched = $request->w;
+            $term_saved->if_exists = 1;
+             $term_saved->searched_by = 1; //1 = searchbar on main page was used
+            $term_saved->save();
+          }else{
+          //notting
+          }
+return redirect()->route('term', ['w'=>$request->w]);
+    }
+
+    public function getTerm(Request $request){
         $word=   strip_tags(\Request::get('w'));
          $what_word1 =  strip_tags(\Request::get('w'));
 
@@ -44,25 +53,9 @@ class SearchController extends Controller
                   ->orderBy('vote_cache', 'status')
                 ->paginate(10);
 
-            if (count($what_word) === 0){
-          $term_saved = new Searches;
-            $term_saved->searched = $word;
-            $term_saved->if_exists = 0;
-            $term_saved->save();
-          }elseif(count($what_word) > 0){
-            $term_saved = new Searches;
-            $term_saved->searched = $word;
-            $term_saved->if_exists = 1;
-            $term_saved->save();
-
-          }else{
-            //notting
-          }
-
     if (Auth::check()) {
     $id_list = [];
-       foreach($what_word as $indexKey => $word)
-    {
+       foreach($what_word as $indexKey => $word){
       $id_list[] = $word->id;
     }
             $saved1 = UserSavedWords::select('id','word_id')
@@ -74,11 +67,8 @@ class SearchController extends Controller
          $saved[] = $word->word_id;
        }
 
-       //***************************likes
-        
     $id_list = [];
-       foreach($what_word as $indexKey => $word)
-    {
+       foreach($what_word as $indexKey => $word){
       $id_list[] = $word->id;
     }
             $saved1 = Votes::select('id','word_id','vote_type')
@@ -90,16 +80,12 @@ class SearchController extends Controller
          $votes[] =  $word->word_id;
        }
         return view('term',compact('what_word','what_word1','saved','votes','saved1'));
-}else{
-    
- return view('term',compact('what_word','what_word1','saved'));
-}
+}else{   
+        return view('term',compact('what_word','what_word1','saved'));
+}}
 
-
-}
-
- public function live_search_add(Request $request)
-    {
+//Add word page - this checked if the term already exists or not.
+ public function live_search_add(Request $request){
     $get_word = Word::where('word', '=', $request->search)->first();
     if( (empty($get_word))) { 
    return "new";

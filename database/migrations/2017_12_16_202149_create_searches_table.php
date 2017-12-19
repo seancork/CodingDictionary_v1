@@ -16,7 +16,8 @@ class CreateSearchesTable extends Migration
         Schema::create('searches', function (Blueprint $table) {
             $table->increments('id');
             $table->string('searched');
-             $table->integer('if_exists');
+            $table->integer('if_exists');
+            $table->integer('searched_by');
             $table->timestamps();
         });
     }

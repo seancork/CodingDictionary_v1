@@ -12,6 +12,7 @@
 */
 
 Route::get('/term',['uses' => 'SearchController@getTerm','as' => 'term']);
+Route::post('search',['uses' => 'SearchController@search_front','as' => 'search']);
 
 Route::get('/add', 'WordController@add')->name('add')->middleware('auth');
 Route::get('/submitted_words', 'DashboardController@submitted_words')->name('submitted_words')->middleware('auth');
