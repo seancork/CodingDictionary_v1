@@ -48,7 +48,7 @@ return redirect()->route('term', ['w'=>$request->w]);
          $what_word1 =  strip_tags(\Request::get('w'));
 
            $what_word = Word::select('word', 'description','id','vote_cache')
-                ->where('word', '=', $word)
+           ->where('word','like','%'.$word.'%')
                 ->where('status', '=', 1)
                   ->orderBy('vote_cache', 'status')
                 ->paginate(10);
