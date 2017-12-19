@@ -33,10 +33,8 @@ $(document).ready(function(){
             @section('title')
     - {{$word->word}}
         @stop
-           <h1>{{$word->word}}</h1>
            @endif
-           <hr />
-           
+            <h2>{{$word->word}}</h2>
     <p>{{$word->description}}</p><br />
 @if(Auth::check())
     <div class=vote>
@@ -90,10 +88,10 @@ $(document).ready(function(){
   </div>
  @endif
  @endif
+  <hr />
  @endforeach
 </div>
  @endif
- <hr />
       @if (count($what_word) === 0)
       
       @else
