@@ -14,8 +14,9 @@ class DashboardAdminController extends Controller
     public function admin_main()
     {
      $count_users = User::count();
+      $total_aproved_words = Word::where('status',1)->count();
      $searches = Searches::orderBy('created_at', 'created_at')->paginate(50);
-            return view('admin_main',compact('count_users','searches'));
+            return view('admin_main',compact('count_users','searches','total_aproved_words'));
 }
 
  public function words_check()

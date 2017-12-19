@@ -18,6 +18,7 @@
                     </ul>
                     <h1>Users</h1>
               <p>User Count: {{$count_users}}</p>
+              <p>Total Words:{{$total_aproved_words}}</p>
 
               <h1>Searches</h1>
               <p>red = word does not exist.</p>
