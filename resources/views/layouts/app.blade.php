@@ -98,7 +98,7 @@
 </script>
  <!-- End -->
 
-@elseif(env('APP_ENV') != "local")
+@elseif(!\Auth::check() && env('APP_ENV') != "local")
     <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111023536-1"></script>
 <script>
