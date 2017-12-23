@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('description', 'A Place to get simple explanations of coding terms.')
 @section('content')
 <div class="container">
     <div class="row">
@@ -9,6 +9,7 @@
 
          <div class="panel-body">
     <div class="search-box-frontpage text-center">
+      <h4>A Place to get simple explanations of coding terms.</h4>
      <form role="form" class="search" method="POST" action="{{ route('search') }}">
                {{ csrf_field() }}
          <h3 class="no-margin-top h3"></h3>
