@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('description', 'CodingDictionary is a place with simple, easy to understand explanations of coding terms or add your own explanation in under 255 characters.')
+@section('description', 'CodingDictionary is a place with simple, easy to understand explanations of coding terms or add your own explanation.')
 @section('content')
 <div class="container">
     <div class="row">
@@ -9,7 +9,7 @@
 
          <div class="panel-body">
     <div class="search-box-frontpage text-center">
-      <h4>A place to get simple explanations of coding terms.</h4>
+      <h4>A place with simple explanations of coding terms.</h4>
      <form role="form" class="search" method="POST" action="{{ route('search') }}">
                {{ csrf_field() }}
          <h3 class="no-margin-top h3"></h3>
@@ -19,6 +19,7 @@
             <button class="btn btn-danger" type="submit">Search</button>
             </span>
         </div>
+          </form>
         @if (count($recent_words) <= 4)
         <br />
     @elseif (count($recent_words) >= 5)
@@ -29,7 +30,7 @@
          <h5><a href="{{ route('term') }}?w={{urlencode($word->word)}}">{{$word->word}}</a></p></h5>
             @endforeach
              @endif
-      </form>
+             <p><b><a href="{{ route('all_terms') }}">View All Terms</a></b></p>
          </div>
        </div>
      </div>

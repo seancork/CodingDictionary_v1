@@ -23,6 +23,7 @@ class SearchController extends Controller
     }
 
      public function search_front(Request $request){
+         if (!empty($request->w)) {
        $get_word = Word::where('word', '=', $request->w)->first();
  
        if( (empty($get_word))) { 
@@ -40,13 +41,16 @@ class SearchController extends Controller
           }else{
           //notting
           }
-return redirect()->route('term', ['w'=>$request->w]);
-    }
+  return redirect()->route('term', ['w'=>$request->w]);
+    }else{
+  return redirect('all_terms');
+    }}
 
     public function getTerm(Request $request){
         $word=   strip_tags(\Request::get('w'));
          $what_word1 =  strip_tags(\Request::get('w'));
-
+       
+         if (!empty($word)) {
            $what_word = Word::select('word', 'description','id','vote_cache')
            ->where('word','like','%'.$word.'%')
                 ->where('status', '=', 1)
@@ -82,7 +86,12 @@ return redirect()->route('term', ['w'=>$request->w]);
         return view('term',compact('what_word','what_word1','saved','votes','saved1'));
 }else{   
         return view('term',compact('what_word','what_word1','saved'));
-}}
+}
+
+}else{
+  return redirect('all_terms');
+}
+}
 
 //Add word page - this checked if the term already exists or not.
  public function live_search_add(Request $request){

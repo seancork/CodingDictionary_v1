@@ -95,4 +95,9 @@ class WordController extends Controller
          response()->json(['success' => 'success'], 200);
         }
     }
-}
+
+     public function get_all_terms(){
+        $all_words = Word::paginate(20);
+ 
+        return view('all_terms',compact('all_words'));
+}}
