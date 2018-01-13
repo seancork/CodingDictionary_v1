@@ -52,7 +52,7 @@ class SearchController extends Controller
        
          if (!empty($word)) {
            $what_word = Word::select('word', 'description','id','vote_cache')
-           ->where('word','like','%'.$word.'%')
+           ->where('word', '=', $word)
                 ->where('status', '=', 1)
                   ->orderBy('vote_cache', 'status')
                 ->paginate(10);

@@ -1,4 +1,5 @@
 @extends('layouts.app')
+   <link href="{{ asset('css/extra.css') }}" rel="stylesheet">
 @section('description', 'CodingDictionary is a place with simple, easy to understand explanations of coding terms or add your own explanation.')
 @section('content')
 <div class="container">

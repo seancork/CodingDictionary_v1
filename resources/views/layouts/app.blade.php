@@ -14,7 +14,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -83,7 +82,6 @@
     </span>
       </div>
     </footer>
-    </div>
 
     <!-- Scripts -->
  @if(\Auth::check() && env('APP_ENV') != "local" && auth()->user()->is_permission == 0)

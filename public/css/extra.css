@@ -1,5 +1,24 @@
 /***** codingdictionary.com *****/
-
+pre {
+  font-size: 20px;
+  border: 2px solid grey;
+  width: 450px;
+  border-left: 12px solid green;
+  border-radius: 5px;
+  padding: 14px;
+  
+  /* Fixed line height */
+  line-height: 24px;
+  
+  /* Use linear-gradient for background image */
+  background-image: linear-gradient(180deg, #eee 50%, #fff 50%);
+  
+  /* Size background so that the height is 2x line-height */
+  background-size: 100% 48px;
+  
+  /* Offset the background along the y-axis by top padding */
+  background-position: 0 14px;
+}
 .block_container
 {
     text-align:center;
@@ -39,7 +58,7 @@ body {
 }
 
 body > .container {
-  padding: 60px 15px 0;
+  padding: 0px 15px 0;
 }
 .container .text-muted {
   margin: 20px 0;
