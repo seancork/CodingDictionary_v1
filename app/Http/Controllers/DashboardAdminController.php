@@ -21,10 +21,11 @@ class DashboardAdminController extends Controller
 
  public function words_check()
      {
+      $ip_test = $request->ip();
     	  $words = Word::select('word', 'description','id')
                 ->where('status', '=', 0)->get();
 
-            return view('words_check',compact('words'));
+            return view('words_check',compact('words','ip_test'));
 }
 
  public function words_check_status(Request $request)
