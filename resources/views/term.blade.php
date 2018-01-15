@@ -1,10 +1,14 @@
 @extends('layouts.app')
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{{ asset('js/highlight.pack.js') }}"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
   @if(Auth::check())
  <script src="{{ asset('js/ajax-saved.js') }}"></script>
   <script src="{{ asset('js/ajax-vote.js') }}"></script>
   @endif
-   <link href="{{ asset('css/extra.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('css/default-highlight.css') }}">
+  <link href="{{ asset('css/extra.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <script>
 $(document).ready(function(){
@@ -35,7 +39,20 @@ $(document).ready(function(){
         @stop
            @endif
             <h2>{{$word->word}}</h2>
-    <p>{{$word->description}}</p><br />
+        <?php 
+         
+    // htmlentities encodes code so it won't run, only display on screen
+    $string =  htmlentities($word->description, ENT_QUOTES, 'UTF-8', false);
+    //str_replace will reverse encode for these tags: <code> and <pre>, do they will run
+    $string = str_replace(array("&lt;code&gt;", "&lt;pre&gt;","&lt;/code&gt;","&lt;/pre&gt;" ), array("<code>", "<pre>","</code>","</pre>"), $string);
+
+   //this will auto finish tag unclosed so it won't break our site, eg pre, code in this site.
+    $doc = new DOMDocument();
+    $doc->loadHTML($string);
+    $string = $doc->saveHTML();
+        ?>
+
+    <p>{!! $string !!}</p><br />
 @if(Auth::check())
     <div class=vote>
       <button type="button" id="up-{{$word->id}}"  type="submit" class="btn btn-default">
