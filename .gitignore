@@ -3,7 +3,7 @@
 /public/storage
 /storage/*.key
 /vendor
-!Request.php
+!/vendor/laravel/framework/src/Illuminate/Http/Request
 /.idea
 /.vagrant
 Homestead.json
