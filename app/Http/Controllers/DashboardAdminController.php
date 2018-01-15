@@ -19,9 +19,19 @@ class DashboardAdminController extends Controller
             return view('admin_main',compact('count_users','searches','total_aproved_words'));
 }
 
+public function getIpAddress() {
+    if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $ipAddresses = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+        return trim(end($ipAddresses));
+    }
+    else {
+        return $_SERVER['REMOTE_ADDR'];
+    }
+}
+
  public function words_check(Request $request)
      {
-      $ip_test = $request->ip();
+      $ip_test = $this->getIpAddress();
     	  $words = Word::select('word', 'description','id')
                 ->where('status', '=', 0)->get();
 
