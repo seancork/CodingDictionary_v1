@@ -19,7 +19,7 @@ class DashboardAdminController extends Controller
             return view('admin_main',compact('count_users','searches','total_aproved_words'));
 }
 
- public function words_check()
+ public function words_check(Request $request)
      {
       $ip_test = $request->ip();
     	  $words = Word::select('word', 'description','id')
