@@ -261,7 +261,9 @@ class Request extends SymfonyRequest implements Arrayable, ArrayAccess
     public function ip()
     {
        // return $this->getClientIp();
-         return $this->getIp();
+
+        $test = "192.3434.3434";
+         return $test;
     }
 
     public function getIp(){
