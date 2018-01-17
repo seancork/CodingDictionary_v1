@@ -77,8 +77,8 @@
            <footer class="footer">
       <div class="container">
    <span class="text-muted">
-      <a href="https://twitter.com/Coding_D">Twitter</a> || 
-      <a href="{{ url('about') }}">About</a>
+      <a href="{{ url('about') }}">About</a> ||
+      <a href="https://twitter.com/theseanoneill">Built by @theseanoneill</a>
     </span>
       </div>
     </footer>
