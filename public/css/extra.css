@@ -48,3 +48,6 @@ body > .container {
   padding-right: 15px;
   padding-left: 15px;
 }
+.dropdown-menu{
+  width: 70%;
+}

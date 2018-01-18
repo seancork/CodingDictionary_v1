@@ -93,6 +93,12 @@ class SearchController extends Controller
 }
 }
 
+    public function ajaxData(Request $request){
+        $query = $request->get('query','');     
+  $data = Word::select("word as name")->where("word","LIKE","%{$request->input('query')}%")->get();
+        return response()->json($data);    
+  }
+
 //Add word page - this checked if the term already exists or not.
  public function live_search_add(Request $request){
     $get_word = Word::where('word', '=', $request->search)->first();

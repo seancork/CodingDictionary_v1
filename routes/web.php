@@ -15,6 +15,8 @@ Route::get('/term',['uses' => 'SearchController@getTerm','as' => 'term']);
 Route::get('/all_terms',['uses' => 'WordController@get_all_terms','as' => 'all_terms']);
 Route::post('search',['uses' => 'SearchController@search_front','as' => 'search']);
 
+Route::get('autocomplete-ajax',array('as'=>'autocomplete.ajax','uses'=>'SearchController@ajaxData'));
+
 Route::get('/add', 'WordController@add')->name('add')->middleware('auth');
 Route::get('/submitted_words', 'DashboardController@submitted_words')->name('submitted_words')->middleware('auth');
 
