@@ -93,9 +93,13 @@ class SearchController extends Controller
 }
 }
 
-    public function ajaxData(Request $request){
-        $query = $request->get('query','');     
-  $data = Word::select("word as name")->where("word","LIKE","%{$request->input('query')}%")->get();
+    public function ajax_autocompete_search(Request $request){
+  $data = Word::select("word as name")
+           ->where("word","LIKE","%{$request->input('query')}%")
+           ->where('status', '=', 1)
+           ->groupBy('word')
+           ->get();
+
         return response()->json($data);    
   }
 
