@@ -2,22 +2,14 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="{{ asset('js/highlight.pack.js') }}"></script>
 <script>hljs.initHighlightingOnLoad();</script>
-
+<script src="{{ asset('js/ajax-vote.js') }}"></script>
+  
   @if(Auth::check())
  <script src="{{ asset('js/ajax-saved.js') }}"></script>
-  <script src="{{ asset('js/ajax-vote.js') }}"></script>
   @endif
   <link rel="stylesheet" href="{{ asset('css/default-highlight.css') }}">
   <link href="{{ asset('css/extra.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<script>
-$(document).ready(function(){
-    $('[data-toggle="popover"]').popover({
-        placement : 'top',
-        trigger : 'hover'
-    });
-});
-</script>
 
 @section('content')
 <div class="container">
@@ -46,42 +38,41 @@ $(document).ready(function(){
     //str_replace will reverse encode for these tags: <code> and <pre>, do they will run
     $string = str_replace(array("&lt;code&gt;", "&lt;pre&gt;","&lt;/code&gt;","&lt;/pre&gt;" ), array("<code>", "<pre>","</code>","</pre>"), $string);
 
-   //this will auto finish tag unclosed so it won't break our site, eg pre, code in this site.
+//this will auto finish tag unclosed so it won't break our site, eg pre, code in this site.
     $doc = new DOMDocument();
+    libxml_use_internal_errors(true);
     $doc->loadHTML($string);
     $string = $doc->saveHTML();
         ?>
 
     <p>{!! $string !!}</p><br />
-@if(Auth::check())
     <div class=vote>
       <button type="button" id="up-{{$word->id}}"  type="submit" class="btn btn-default">
       <span class="glyphicon glyphicon-thumbs-up"></span></button>
       <button type="button" id="down-{{$word->id}}"  type="submit" class="btn btn-default">
       <span class="glyphicon glyphicon-thumbs-down"></span></button> |
     </div>
-    @else
-    
-<div class="vote">
-     <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Please login to like">
- <span class="glyphicon glyphicon-thumbs-up"></span></button> |
 
-  <button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="top" data-content="Please login to dislike">
- <span class="glyphicon glyphicon-thumbs-down"></span></button> |
+     @if(Auth::check() && count($cookie) > 0)
+         @foreach($cookie as $indexKey => $word1)
+          <?php $get_id = preg_replace("/[^0-9]/","",$word1); ?>
+                 @if($word->id == $get_id)
 
-</div>
-@endif
-     @if(Auth::check())
-         @foreach($saved1 as $indexKey => $word1)
-         @if($word->id == $word1->word_id)
-        <div class=vote>
-      @if($word1->vote_type == 1)
+      @if(substr($word1, 0, 2) == "up")
      <script>
-        document.getElementById("up-{{$word->id}}").className = "btn btn-success";  
+         var foo = <?php echo $get_id; ?>;
+    document.getElementById("{{$word1}}").disabled = true; 
+    document.getElementById("down-"+foo).disabled = true; 
+
+    document.getElementById("{{$word1}}").className = "btn btn-success";  
      </script>
-       @elseif($word1->vote_type  == 0)
+       @elseif(substr($word1, 0, 4)  == "down")
      <script>
-        document.getElementById("down-{{$word->id}}").className = "btn btn-success";  
+       var foo = <?php echo $get_id; ?>;
+    document.getElementById("{{$word1}}").disabled = true; 
+    document.getElementById("up-"+foo).disabled = true;
+
+    document.getElementById("{{$word1}}").className = "btn btn-success";  
      </script>
     @else
    
@@ -91,7 +82,7 @@ $(document).ready(function(){
      @endif
        @endforeach
         @endif
-        <div class=votenum>
+    <div class="votenum">
     <p id="vote-{{$word->id}}" class="votenum">{{$word->vote_cache}}</p>
   </div>
   @if(Auth::check())

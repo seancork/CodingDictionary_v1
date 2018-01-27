@@ -43,7 +43,7 @@ Route::post ( '/removeword', 'VoteController@delete_liked')->middleware('auth');
 
 Route::post ( '/removesave', 'WordController@remove_word')->middleware('auth');
 
-Route::post ( '/voteword', 'VoteController@vote_word')->middleware('auth');
+Route::post ( '/voteword', 'VoteController@vote_word');
 
 Route::get('register/verify/{token}&e={email}', 'Auth\UserVerificationController@verify'); 
 

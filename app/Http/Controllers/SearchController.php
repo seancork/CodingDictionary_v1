@@ -10,6 +10,7 @@ use App\UserSavedWords;
 use App\Searches;
 use App\Votes;
 use Response;
+use Cookie;
 
 class SearchController extends Controller
 {
@@ -83,7 +84,9 @@ class SearchController extends Controller
        foreach($saved1 as $indexKey => $word){
          $votes[] =  $word->word_id;
        }
-        return view('term',compact('what_word','what_word1','saved','votes','saved1'));
+           $cookie = json_decode(Cookie::get('been_clicked'));
+
+   return view('term',compact('what_word','what_word1','saved','votes','saved1','cookie'));
 }else{   
         return view('term',compact('what_word','what_word1','saved'));
 }

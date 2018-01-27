@@ -1,8 +1,59 @@
 $(document).ready(function() {
+
+  (function($) {
+
+// jQuery on an empty object, we are going to use this as our Queue
+var ajaxQueue = $({});
+
+$.ajaxQueue = function( ajaxOpts ) {
+    var jqXHR,
+        dfd = $.Deferred(),
+        promise = dfd.promise();
+
+    // queue our ajax request
+    ajaxQueue.queue( doRequest );
+
+    // add the abort method
+    promise.abort = function( statusText ) {
+
+        // proxy abort to the jqXHR if it is active
+        if ( jqXHR ) {
+            return jqXHR.abort( statusText );
+        }
+
+        // if there wasn't already a jqXHR we need to remove from queue
+        var queue = ajaxQueue.queue(),
+            index = $.inArray( doRequest, queue );
+
+        if ( index > -1 ) {
+            queue.splice( index, 1 );
+        }
+
+        // and then reject the deferred
+        dfd.rejectWith( ajaxOpts.context || ajaxOpts,
+            [ promise, statusText, "" ] );
+
+        return promise;
+    };
+
+    // run the actual query
+    function doRequest( next ) {
+        jqXHR = $.ajax( ajaxOpts )
+            .then( next, next )
+            .done( dfd.resolve )
+            .fail( dfd.reject );
+    }
+
+    return promise;
+};
+})(jQuery);
+
    $(".vote").on('click', ".btn-default", function() {
      button_id =  this.id;
- var thenum = button_id.replace( /^\D+/g, '');
+  var thenum = button_id.replace( /^\D+/g, '');
   var which = button_id.replace(/[^a-zA-Z]+/g, '');
+   $('#up-'+thenum).attr('disabled','disabled');
+   $('#down-'+thenum).attr('disabled','disabled');
    if(which == "up"){
                       check = ($('#down-'+thenum).hasClass("btn btn-success"));
                 $('#'+button_id).removeClass('btn btn-default').addClass('btn btn-success');
@@ -26,12 +77,11 @@ $(document).ready(function() {
                    vote_num("sub",thenum);
                 }
                }
-        $.ajax({
+        $.ajaxQueue({
             type: 'post',
             url: '/voteword',
             
             data: {
-                '_token': $('input[name=_token]').val(),
                 'word_id': button_id
             },
             success: function(data) {
@@ -58,7 +108,7 @@ $(document).ready(function() {
                $('#down-'+thenum).removeClass('btn btn-success').addClass('btn btn-default');
                 vote_num("add", thenum); 
                }
-        $.ajax({
+        $.ajaxQueue({
             type: 'post',
             url: '/removeword',
             data: {
@@ -98,3 +148,4 @@ $(document).ready(function() {
     computerScore.innerHTML = number;
   }
 }});
+
