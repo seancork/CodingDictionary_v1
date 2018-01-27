@@ -77,7 +77,7 @@
     @else
    
    @endif
-   </div>
+   
    @else
      @endif
        @endforeach
