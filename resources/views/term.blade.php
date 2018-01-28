@@ -77,7 +77,7 @@
     @else
    
    @endif
-
+   </div>
    @else
      @endif
        @endforeach
@@ -100,7 +100,8 @@
  @endforeach
 </div>
  @endif
-      @if(!$what_word->isEmpty())
+      @if (count($what_word) === 0)
+      
       @else
 <p margin: 0; padding: 0;>Have a better explanation?
     <a href="{{ url('add') }}">Add yours.</a></p>
