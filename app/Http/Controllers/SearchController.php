@@ -58,6 +58,8 @@ class SearchController extends Controller
                   ->orderBy('vote_cache', 'status')
                 ->paginate(10);
 
+  $cookie = json_decode(Cookie::get('been_clicked'));
+  
     if (Auth::check()) {
     $id_list = [];
        foreach($what_word as $indexKey => $word){
@@ -76,19 +78,11 @@ class SearchController extends Controller
        foreach($what_word as $indexKey => $word){
       $id_list[] = $word->id;
     }
-            $saved1 = Votes::select('id','word_id','vote_type')
-                ->where('user_id', '=', \Auth::user()->id)
-                ->where('deleted', '=', 0)
-                ->whereIn('word_id', $id_list)->get();
-                   $votes = [];
-       foreach($saved1 as $indexKey => $word){
-         $votes[] =  $word->word_id;
-       }
-           $cookie = json_decode(Cookie::get('been_clicked'));
+           
 
-   return view('term',compact('what_word','what_word1','saved','votes','saved1','cookie'));
+   return view('term',compact('what_word','what_word1','saved','saved1','cookie'));
 }else{   
-        return view('term',compact('what_word','what_word1','saved'));
+          return view('term',compact('what_word','what_word1','saved','saved1','cookie'));
 }
 
 }else{

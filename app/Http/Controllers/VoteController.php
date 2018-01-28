@@ -8,6 +8,8 @@ use Response;
 use App\Votes;
 use App\Word;
 use Cookie;
+use Auth;
+
 class VoteController extends Controller
 {
     /**
@@ -37,7 +39,11 @@ class VoteController extends Controller
             $save_vote = new Votes; 
             $save_vote->word_id = $get_id;
             $save_vote->deleted = 0;
+        if (Auth::check()) {
             $save_vote->user_id = \Auth::user()->id;
+        }else{
+              $save_vote->user_id = null;
+        }
             $save_vote->vote_type =  1;
             $save_vote->save();
            

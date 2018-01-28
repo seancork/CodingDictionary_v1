@@ -13,7 +13,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading"></div>
-
+{{Cookie::get('been_clicked')}}
          <div class="panel-body">
     <div class="search-box-frontpage text-center">
       <h4>A place with simple explanations of coding terms.</h4>

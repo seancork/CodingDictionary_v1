@@ -53,7 +53,7 @@
       <span class="glyphicon glyphicon-thumbs-down"></span></button> |
     </div>
 
-     @if(Auth::check() && count($cookie) > 0)
+     @if(count($cookie) > 0)
          @foreach($cookie as $indexKey => $word1)
           <?php $get_id = preg_replace("/[^0-9]/","",$word1); ?>
                  @if($word->id == $get_id)
@@ -77,7 +77,7 @@
     @else
    
    @endif
-   
+   </div>
    @else
      @endif
        @endforeach
