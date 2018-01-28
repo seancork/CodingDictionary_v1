@@ -100,8 +100,7 @@
  @endforeach
 </div>
  @endif
-      @if (count($what_word) === 0)
-      
+      @if(!$what_word->isEmpty())
       @else
 <p margin: 0; padding: 0;>Have a better explanation?
     <a href="{{ url('add') }}">Add yours.</a></p>
