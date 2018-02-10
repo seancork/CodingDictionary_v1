@@ -6,6 +6,7 @@ use App\UserSavedWords;
 use Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class WordController extends Controller
 {
@@ -20,11 +21,12 @@ class WordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function add_word(Request $request)
+   public function add_word(Request $request)
     {
      $validator = Validator::make($request->all(), [
  'word' => 'required|regex:/^[\pL\s\-]+$/u|min:1|max:191',
         'desc' => 'required|min:1|max:255',
+         'g-recaptcha-response' => 'required|captcha',
     ]);
 
     if ($validator->fails()) {
@@ -32,14 +34,23 @@ class WordController extends Controller
                         ->withErrors($validator)
                         ->withInput();
     }else{
-    $add = new Word;
+        if(\Auth::check()){//if user is logged in save user_id
+          $add = new Word;
     $add->word = $request->word;
+    $add->user_id = $id = \Auth::user()->id;
     $add->description = $request->desc;
     $add->status = 0;  //0 = waiting to be approved/disproved | 1 = disproved | 2 = approved
     $add->user_id = \Auth::user()->id;
     $add->vote_cache = 0;
     $add->save();
-    }
+    }else{  
+    $add = new Word;
+    $add->word = $request->word;
+    $add->description = $request->desc;
+    $add->status = 0;  //0 = waiting to be approved/disproved | 1 = disproved | 2 = approved
+    $add->vote_cache = 0;
+    $add->save();
+    }}
     return view('word_successful');
   }
 

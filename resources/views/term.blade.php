@@ -41,7 +41,7 @@
 //this will auto finish tag unclosed so it won't break our site, eg pre, code in this site.
     $doc = new DOMDocument();
     libxml_use_internal_errors(true);
-    $doc->loadHTML($string);
+    $doc->loadHTML($string, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
     $string = $doc->saveHTML();
         ?>
 

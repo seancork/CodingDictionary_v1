@@ -19,7 +19,7 @@ Route::get('search_click',['uses' => 'SearchController@search_front','as' => 'se
 
 Route::get('autocomplete-ajax',array('as'=>'autocomplete.ajax','uses'=>'SearchController@ajax_autocompete_search'));
 
-Route::get('/add', 'WordController@add')->name('add')->middleware('auth');
+Route::get('/add', 'WordController@add')->name('add');
 Route::get('/submitted_words', 'DashboardController@submitted_words')->name('submitted_words')->middleware('auth');
 
 Route::get('/', 'HomeController@index_recent_words')->name('welcome');
@@ -30,7 +30,7 @@ Route::get('about', function () {
 
 Auth::routes();
 
-Route::post('add_word', 'WordController@add_word')->name('add_word')->middleware('auth');
+Route::post('add_word', 'WordController@add_word')->name('add_word');
 
 Auth::routes();
 
