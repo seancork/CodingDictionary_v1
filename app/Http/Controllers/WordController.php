@@ -104,7 +104,7 @@ class WordController extends Controller
     }
 
      public function get_all_terms(){
-        $all_words = Word::select('word')->groupBy('word')->paginate(20);
+        $all_words = Word::select('word')->groupBy('word') ->where('status', '=', 1)->distinct()->paginate(20);
  
         return view('all_terms',compact('all_words'));
 }}
