@@ -24,9 +24,9 @@ class WordController extends Controller
    public function add_word(Request $request)
     {
      $validator = Validator::make($request->all(), [
- 'word' => 'required|regex:/^[\pL\s\-]+$/u|min:1|max:191',
-        'desc' => 'required|min:1|max:255',
-         'g-recaptcha-response' => 'required|captcha',
+        'word' => 'required|regex:/^[\pL\s\-]+$/u|min:1|max:191',
+        'desc' => 'required|min:1|max:1000',
+        'g-recaptcha-response' => 'required|captcha',
     ]);
 
     if ($validator->fails()) {
