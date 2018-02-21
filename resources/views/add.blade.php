@@ -39,8 +39,9 @@
 
                             <div class="col-md-8">
                                 <textarea id="desc" type="text"  rows="11" maxlength="1000" class="form-control" name="desc" value="{{ old('desc') }}" required></textarea>
-                                  <div id="textarea_feedback"></div>
-        
+                                  <div id="textarea_feedback"></div><br />
+                                   <p><b>For code snippets: </b> &lt;pre&gt;&lt;code&gt; Code Here &lt;/code&gt;&lt;/pre&gt;</p>
+                               
                              <hr /> 
                                <h2><div class='live_word_title'></div></h2>
                                   <div class='live_desc'></div>

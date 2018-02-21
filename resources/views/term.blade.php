@@ -45,7 +45,7 @@
     $string = $doc->saveHTML();
         ?>
 
-    <p>{!! $string !!}</p><br />
+    <div class='display-term'>{!! $string !!}</div>
     <div class=vote>
       <button type="button" id="up-{{$word->id}}"  type="submit" class="btn btn-default">
       <span class="glyphicon glyphicon-thumbs-up"></span></button>

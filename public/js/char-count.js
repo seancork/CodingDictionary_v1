@@ -22,7 +22,7 @@ $(document).ready(function() {
 var urlEncode  = htmlEncode(newText);
   var text1 = urlEncode.replace(/</g, "&lt;").replace(/>/g, "&gt;");
    var text2 =  text1.replace(/&lt;code&gt;/g, "<code>").replace(/&lt;\/code&gt;/g, "</code>")
-                     .replace(/&lt;pre&gt;/g, "<pre>").replace(/&lt;\/pre&gt;/g, "</pre>").replace("&lt;br /&gt;", "<br .../>");
+                     .replace(/&lt;pre&gt;/g, "<pre>").replace(/&lt;\/pre&gt;/g, "</pre>").replace("&lt;br /&gt;", "<br />");
   $('.live_desc').html(text2).text();
 });  
 

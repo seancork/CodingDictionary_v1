@@ -30,15 +30,16 @@
     // htmlentities encodes code so it won't run, only display on screen
     $string =  htmlentities($word->description, ENT_QUOTES, 'UTF-8', false);
     //str_replace will reverse encode for these tags: <code> and <pre>, do they will run
-    $string = str_replace(array("&lt;code&gt;", "&lt;pre&gt;","&lt;/code&gt;","&lt;/pre&gt;" ), array("<code>", "<pre>","</code>","</pre>"), $string);
+    $string = str_replace(array("&lt;code&gt;", "&lt;pre&gt;","&lt;/code&gt;","&lt;/pre&gt;", "&lt;br /&gt;"), array("<code>", "<pre>","</code>","</pre>","<br />"), $string);
 
    //this will auto finish tag unclosed so it won't break our site, eg pre, code in this site.
-    $doc = new DOMDocument();
-    $doc->loadHTML($string);
+     $doc = new DOMDocument();
+    libxml_use_internal_errors(true);
+    $doc->loadHTML($string, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
     $string = $doc->saveHTML();
         ?>
 
-    <p>{!! $string !!}</p><br />
+<div class='display-term'>{!! $string !!}</div>
              <div class=checkword>
          <button type="button"  id="up-{{$word->id}}" class="btn">Approve</button>
           <button type="button" id="down-{{$word->id}}" class="btn">disprove</button>

@@ -12,6 +12,18 @@
 	  padding-top: 1px!important;
 }
 
+.live_desc, .display-term {
+ white-space: pre-wrap;
+}
+.navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+}
+
+.navbar .navbar-collapse {
+    text-align: center;
+}
+
 .wordsave
 {
       float: right !important;
