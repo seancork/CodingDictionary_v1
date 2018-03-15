@@ -8,7 +8,7 @@
                 <div class="panel-heading">About</div>
 
                <div class="panel-body">
-                  <p><b>CodingDictionary</b> gives simple explanation of coding terms in under 255 characters , users can add words, like/dislike explanations, save words for later reading.
+                  <p><b>CodingDictionary</b> gives simple explanation of coding terms in under 1000 characters , users can add words, like/dislike explanations, save words for later reading.
                 </div>
             </div>
         </div>
