@@ -43,7 +43,6 @@
         $('#search_text').typeahead({
             source:  function (query, process) {
             return $.get(url, { query: query }, function (data) {
-              console.log(data);
                     return process(data);
                 });
           },
